@@ -1,0 +1,213 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Text on Background Image</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body,
+      html {
+        height: 100%;
+        font-family: Arial, sans-serif;
+      }
+
+      .hero {
+        background-image: url("test.png"); /* Replace with your image path */
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh; /* Full viewport height */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+
+      .text-overlay {
+        color: #9b825b; /* Hex color for the text */
+        font-size: 1rem;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hero">
+      <div class="text-overlay">Your Custom Text Here</div>
+    </div>
+  </body>
+</html> -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dubai Prayer Times</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body,
+      html {
+        height: 100%;
+        font-family: Arial, sans-serif;
+      }
+
+      .hero {
+        background-image: url("test.png"); /* Replace with your image path */
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh; /* Full viewport height */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        flex-direction: column;
+      }
+
+      .text-overlay {
+        color: #9b825b; /* Hex color for the text */
+        font-size: 2rem;
+        font-weight: bold;
+      }
+
+      .loading {
+        font-size: 1.5rem;
+        color: #9b825b;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hero">
+      <div id="prayer-times" class="text-overlay">
+        <p class="loading">Loading prayer times...</p>
+      </div>
+    </div>
+
+    <script>
+      // Function to fetch prayer times from the Aladhan API
+      async function getPrayerTimes() {
+        const response = await fetch(
+          "http://api.aladhan.com/v1/timingsByCity?city=Dubai&country=UAE&method=2"
+        );
+        const data = await response.json();
+
+        // Get the prayer times
+        const timings = data.data.timings;
+
+        // Display prayer times in the HTML
+        document.getElementById("prayer-times").innerHTML = `
+                <p>Fajr: ${timings.Fajr}</p>
+                <p>Dhuhr: ${timings.Dhuhr}</p>
+                <p>Asr: ${timings.Asr}</p>
+                <p>Maghrib: ${timings.Maghrib}</p>
+                <p>Isha: ${timings.Isha}</p>
+            `;
+      }
+
+      // Call the function to get the prayer times when the page loads
+      window.onload = getPrayerTimes;
+    </script>
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dubai Prayer Times</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body,
+      html {
+        height: 100%;
+        font-family: Arial, sans-serif;
+      }
+
+      .hero {
+        background-image: url("test.png"); /* Replace with your image path */
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh; /* Full viewport height */
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        flex-direction: column;
+        padding-top: 1rem; /* Start prayer times 1 rem lower */
+      }
+
+      .text-overlay {
+        color: #9b825b; /* Default color for the text */
+        font-size: 1.5rem; /* Smaller text */
+        font-weight: bold;
+        margin-top: 8rem;
+        margin-left: 9rem;
+      }
+
+      .text-overlay p {
+        margin-bottom: 1rem; /* 1rem space between each prayer time */
+      }
+      .dhuhr {
+        margin-top: 3rem;
+      }
+      .asr {
+        color: white; /* White color for Asr prayer */
+        margin-top: 2rem;
+      }
+
+      .loading {
+        font-size: 1.5rem;
+        color: #9b825b;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hero">
+      <div id="prayer-times" class="text-overlay">
+        <p class="loading">Loading prayer times...</p>
+      </div>
+    </div>
+
+    <script>
+      // Function to fetch prayer times from the Aladhan API
+      async function getPrayerTimes() {
+        const response = await fetch(
+          "http://api.aladhan.com/v1/timingsByCity?city=Dubai&country=UAE&method=2"
+        );
+        const data = await response.json();
+
+        // Get the prayer times
+        const timings = data.data.timings;
+
+        // Display prayer times, with Asr in white
+        document.getElementById("prayer-times").innerHTML = `
+                <p>${timings.Fajr}</p>
+                <p class="dhuhr">${timings.Dhuhr}</p>
+                <p class="asr">${timings.Asr}</p> <!-- Asr in white -->
+                <p>${timings.Maghrib}</p>
+                <p>${timings.Isha}</p>
+            `;
+      }
+
+      // Call the function to get the prayer times when the page loads
+      window.onload = getPrayerTimes;
+    </script>
+  </body>
+</html>
