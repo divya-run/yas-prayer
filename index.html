@@ -155,21 +155,17 @@
 
       .text-overlay {
         color: #9b825b; /* Default color for the text */
-        font-size: 1.5rem; /* Smaller text */
+        font-size: 1.2rem; /* Smaller text */
         font-weight: bold;
-        margin-top: 8rem;
-        margin-left: 9rem;
+        margin-top: 11rem;
+        margin-left: 10rem;
       }
 
       .text-overlay p {
-        margin-bottom: 1rem; /* 1rem space between each prayer time */
-      }
-      .dhuhr {
-        margin-top: 3rem;
+        margin-bottom: 2rem; /* 1rem space between each prayer time */
       }
       .asr {
         color: white; /* White color for Asr prayer */
-        margin-top: 2rem;
       }
 
       .loading {
@@ -186,10 +182,19 @@
     </div>
 
     <script>
+      // Function to convert 24-hour format to 12-hour format with AM/PM
+      function convertTo12Hour(time) {
+        let [hours, minutes] = time.split(":");
+        hours = parseInt(hours);
+        const ampm = hours >= 12 ? "PM" : "AM";
+        hours = hours % 12 || 12; // Convert to 12-hour format
+        return `${hours}:${minutes} ${ampm}`;
+      }
+
       // Function to fetch prayer times from the Aladhan API
       async function getPrayerTimes() {
         const response = await fetch(
-          "http://api.aladhan.com/v1/timingsByCity?city=Dubai&country=UAE&method=2"
+          "https://api.aladhan.com/v1/timingsByCity?city=Dubai&country=UAE&method=2"
         );
         const data = await response.json();
 
@@ -198,11 +203,13 @@
 
         // Display prayer times, with Asr in white
         document.getElementById("prayer-times").innerHTML = `
-                <p>${timings.Fajr}</p>
-                <p class="dhuhr">${timings.Dhuhr}</p>
-                <p class="asr">${timings.Asr}</p> <!-- Asr in white -->
-                <p>${timings.Maghrib}</p>
-                <p>${timings.Isha}</p>
+              <p>${convertTo12Hour(timings.Fajr)}</p>
+                <p>${convertTo12Hour(timings.Dhuhr)}</p>
+                <p class="asr">${convertTo12Hour(
+                  timings.Asr
+                )}</p> <!-- Asr in white -->
+                <p>${convertTo12Hour(timings.Maghrib)}</p>
+                <p>${convertTo12Hour(timings.Isha)}</p>
             `;
       }
 
