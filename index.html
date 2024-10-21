@@ -3,129 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Text on Background Image</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body,
-      html {
-        height: 100%;
-        font-family: Arial, sans-serif;
-      }
-
-      .hero {
-        background-image: url("test.png"); /* Replace with your image path */
-        background-size: contain;
-        background-position: center;
-        background-repeat: no-repeat;
-        height: 100vh; /* Full viewport height */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-      }
-
-      .text-overlay {
-        color: #9b825b; /* Hex color for the text */
-        font-size: 1rem;
-        font-weight: bold;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="hero">
-      <div class="text-overlay">Your Custom Text Here</div>
-    </div>
-  </body>
-</html> -->
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dubai Prayer Times</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body,
-      html {
-        height: 100%;
-        font-family: Arial, sans-serif;
-      }
-
-      .hero {
-        background-image: url("test.png"); /* Replace with your image path */
-        background-size: contain;
-        background-position: center;
-        background-repeat: no-repeat;
-        height: 100vh; /* Full viewport height */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        flex-direction: column;
-      }
-
-      .text-overlay {
-        color: #9b825b; /* Hex color for the text */
-        font-size: 2rem;
-        font-weight: bold;
-      }
-
-      .loading {
-        font-size: 1.5rem;
-        color: #9b825b;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="hero">
-      <div id="prayer-times" class="text-overlay">
-        <p class="loading">Loading prayer times...</p>
-      </div>
-    </div>
-
-    <script>
-      // Function to fetch prayer times from the Aladhan API
-      async function getPrayerTimes() {
-        const response = await fetch(
-          "http://api.aladhan.com/v1/timingsByCity?city=Dubai&country=UAE&method=2"
-        );
-        const data = await response.json();
-
-        // Get the prayer times
-        const timings = data.data.timings;
-
-        // Display prayer times in the HTML
-        document.getElementById("prayer-times").innerHTML = `
-                <p>Fajr: ${timings.Fajr}</p>
-                <p>Dhuhr: ${timings.Dhuhr}</p>
-                <p>Asr: ${timings.Asr}</p>
-                <p>Maghrib: ${timings.Maghrib}</p>
-                <p>Isha: ${timings.Isha}</p>
-            `;
-      }
-
-      // Call the function to get the prayer times when the page loads
-      window.onload = getPrayerTimes;
-    </script>
-  </body>
-</html> -->
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dubai Prayer Times</title>
     <style>
       * {
@@ -207,7 +84,7 @@
                 <p>${convertTo12Hour(timings.Dhuhr)}</p>
                 <p class="asr">${convertTo12Hour(
                   timings.Asr
-                )}</p> <!-- Asr in white -->
+                )}</p> 
                 <p>${convertTo12Hour(timings.Maghrib)}</p>
                 <p>${convertTo12Hour(timings.Isha)}</p>
             `;
@@ -215,6 +92,185 @@
 
       // Call the function to get the prayer times when the page loads
       window.onload = getPrayerTimes;
+    </script>
+  </body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dubai Prayer Times</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body,
+      html {
+        height: 100%;
+        font-family: Arial, sans-serif;
+      }
+
+      .container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden; /* Ensure no overflow */
+        position: relative;
+      }
+
+      .background-image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain; /* Ensure the whole image is visible without cropping */
+      }
+
+      .text-overlay {
+        position: absolute;
+        z-index: 1;
+        color: black;
+        font-size: 1.2rem; /* Adjust as needed */
+        font-weight: bold;
+        margin-top: 11rem;
+        margin-left: 10rem;
+      }
+
+      .text-overlay p {
+        margin-bottom: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .prayer-name {
+        color: black;
+        width: 20%;
+        text-align: left;
+      }
+
+      .prayer-time-value {
+        color: white; /* Set the prayer timing color to white */
+      }
+
+      .loading {
+        font-size: 1.5rem;
+        color: #9b825b;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Background image that will change based on orientation -->
+      <img
+        src="portrait-image.png"
+        alt="Background"
+        class="background-image"
+        id="bg-image"
+      />
+      <div id="prayer-times" class="text-overlay">
+        <p class="loading">Loading prayer times...</p>
+      </div>
+    </div>
+
+    <script>
+      // Function to convert 24-hour format to 12-hour format with AM/PM
+      function convertTo12Hour(time) {
+        let [hours, minutes] = time.split(":");
+        hours = parseInt(hours);
+        const ampm = hours >= 12 ? "PM" : "AM";
+        hours = hours % 12 || 12; // Convert to 12-hour format
+        return `${hours}:${minutes} ${ampm}`;
+      }
+
+      // Function to check if the current time is within the time window
+      function isWithinTimeWindow(prayerTime) {
+        const [hours, minutes] = prayerTime.split(":").map(Number);
+        const now = new Date();
+        const prayerDate = new Date();
+
+        // Set the prayer time
+        prayerDate.setHours(hours);
+        prayerDate.setMinutes(minutes);
+        prayerDate.setSeconds(0);
+
+        // Calculate the time range
+        const startTime = new Date(prayerDate.getTime() - 5 * 60 * 1000); // 5 minutes before
+        const endTime = new Date(prayerDate.getTime() + 10 * 60 * 1000); // 10 minutes after
+
+        return now >= startTime && now <= endTime;
+      }
+
+      // Function to fetch prayer times from the Aladhan API
+      async function getPrayerTimes() {
+        const response = await fetch(
+          "https://api.aladhan.com/v1/timingsByCity?city=Dubai&country=UAE&method=2"
+        );
+        const data = await response.json();
+
+        // Get the prayer times
+        const timings = data.data.timings;
+
+        // Prayer names and their corresponding keys in the API response
+        const prayers = [
+          { name: "الفجر/Fajr", key: "Fajr" },
+          { name: "الظهر/Dhuhr", key: "Dhuhr" },
+          { name: "العصر/Asr", key: "Asr" },
+          { name: "المغرب/Maghrib", key: "Maghrib" },
+          { name: "العشاء/Isha", key: "Isha" },
+        ];
+
+        let displayedPrayer = null;
+
+        // Iterate through the prayers to find the one within the time window
+        for (const prayer of prayers) {
+          if (isWithinTimeWindow(timings[prayer.key])) {
+            displayedPrayer = prayer;
+            break;
+          }
+        }
+
+        // Display the found prayer time if available
+        if (displayedPrayer) {
+          document.getElementById("prayer-times").innerHTML = `
+            <p>
+              <span class="prayer-name">${displayedPrayer.name}</span>
+              <span class="prayer-time-value">${convertTo12Hour(
+                timings[displayedPrayer.key]
+              )}</span>
+            </p>
+          `;
+        } else {
+          document.getElementById("prayer-times").innerHTML = `
+            <p>No prayer time currently active.</p>
+          `;
+        }
+      }
+
+      // Function to switch images based on orientation
+      function updateBackgroundImage() {
+        const imgElement = document.getElementById("bg-image");
+        if (window.innerHeight > window.innerWidth) {
+          // Portrait mode
+          imgElement.src = "artboard_portrait.png"; // Replace with the path to your portrait image
+        } else {
+          // Landscape mode
+          imgElement.src = "artboard_landscape.png"; // Replace with the path to your landscape image
+        }
+      }
+
+      // Call the function to get the prayer times when the page loads
+      window.onload = () => {
+        getPrayerTimes();
+        updateBackgroundImage();
+      };
+
+      // Update the background image when the window is resized
+      window.onresize = updateBackgroundImage;
     </script>
   </body>
 </html>
