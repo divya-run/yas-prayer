@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prayer Time</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body,
+      html {
+        height: 100%;
+        font-family: Arial, sans-serif;
+        overflow: visible;
+      }
+
+      .container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+
+      .background-image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .prayer-time {
+        display: flex;
+        align-items: center;
+        color: black;
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        /*max-width: 1000px;*/
+      }
+
+      /* Base styles for prayer name and time */
+      .prayer-name {
+        font-weight: bold;
+      }
+
+      .prayer-time-value {
+        color: white;
+        font-weight: bold;
+      }
+
+      /* Resolution-specific styles */
+      .res-1050x315 .prayer-name {
+        font-size: 2.2rem;
+        margin-left: 40%;
+        margin-top: 4%;
+        /* Additional styling specific to 1050x315 */
+      }
+
+      .res-1050x315 .prayer-time-value {
+        font-size: 2.2rem;
+        margin-top: 4%;
+        margin-left: 15%;
+      }
+
+      .res-1080x1920 .prayer-name {
+        font-size: 4rem;
+        margin-top: 49%;
+        margin-left: 15%;
+      }
+
+      .res-1080x1920 .prayer-time-value {
+        font-size: 4rem;
+        margin-top: 49%;
+        margin-left: 19%;
+        /* Additional styling specific to 1080x1920 */
+      }
+
+      .res-1260x315 .prayer-name {
+        font-size: 2.2rem;
+        margin-left: 42%;
+        margin-top: 0%;
+        /* Additional styling specific to 1260x315 */
+      }
+
+      .res-1260x315 .prayer-time-value {
+        font-size: 2.2rem;
+        margin-top: 0%;
+        margin-left: 16%;
+      }
+
+      .res-2160x3840 .prayer-name {
+        font-size: 9rem;
+        margin-top: 42%;
+        margin-left: 16%;
+        /* Additional styling specific to 2160x3840 */
+      }
+
+      .res-2160x3840 .prayer-time-value {
+        font-size: 7rem;
+        margin-top: 44%;
+        margin-left: 18%;
+      }
+
+      .res-3968x384 .prayer-name {
+        font-size: 5rem;
+        margin-top: 0%;
+        margin-left: 43%;
+      }
+      .res-3968x384 .prayer-time-value {
+        font-size: 5rem;
+        margin-top: 0%;
+        margin-left: 14%;
+        /* Additional styling specific to 3968x384 */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img
+        src="portrait-image.png"
+        alt="Background"
+        class="background-image"
+        id="bg-image"
+      />
+      <div class="prayer-time">
+        <span class="prayer-name">العصر/Asr</span>
+        <span class="prayer-time-value">03:20 PM</span>
+      </div>
+    </div>
+
+    <script>
+      // Function to switch images and apply resolution-specific classes
+      function updateBackgroundImage() {
+        const imgElement = document.getElementById("bg-image");
+        const container = document.querySelector(".container");
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        // Remove any existing resolution-specific class
+        container.classList.remove(
+          "res-1050x315",
+          "res-1080x1920",
+          "res-1260x315",
+          "res-2160x3840",
+          "res-3968x384"
+        );
+
+        // Apply image and class based on resolution
+        if (width === 1050 && height === 315) {
+          imgElement.src = "image-1050x315.png";
+          container.classList.add("res-1050x315");
+        } else if (width === 1080 && height === 1920) {
+          imgElement.src = "image-1080x1920.png";
+          container.classList.add("res-1080x1920");
+        } else if (width === 1260 && height === 315) {
+          imgElement.src = "image-1260x315.png";
+          container.classList.add("res-1260x315");
+        } else if (width === 2160 && height === 3840) {
+          imgElement.src = "image-2160x3840.png";
+          container.classList.add("res-2160x3840");
+        } else if (width === 3968 && height === 384) {
+          imgElement.src = "image-3968x384.png";
+          container.classList.add("res-3968x384");
+        } else if (window.innerHeight > window.innerWidth) {
+          imgElement.src = "artboard_portrait.png"; // Default portrait image
+        } else {
+          imgElement.src = "artboard_landscape.png"; // Default landscape image
+        }
+      }
+
+      // Update the background image on load and when the window is resized
+      window.onload = updateBackgroundImage;
+      window.onresize = updateBackgroundImage;
+    </script>
+  </body>
+</html>

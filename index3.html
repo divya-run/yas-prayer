@@ -30,7 +30,7 @@
       .background-image {
         width: 100%;
         height: 100%;
-        object-fit: contain; /* Ensure the whole image is visible without cropping */
+        object-fit: contain;
         position: absolute;
         top: 0;
         left: 0;
@@ -39,10 +39,10 @@
       .prayer-time {
         display: flex;
         align-items: center;
-        font-size: 2.5rem; /* Larger font size */
+        font-size: 2.5rem;
         color: black;
         position: relative;
-        z-index: 1; /* Ensure the text is above the image */
+        z-index: 1;
         width: 100%;
         height: 100%;
         max-width: 1000px;
@@ -50,13 +50,13 @@
 
       .prayer-name {
         color: black;
-        font-size: 1.5rem; /* Larger font size */
+        font-size: 1.5rem;
         font-weight: bold;
       }
 
       .prayer-time-value {
         color: white;
-        font-size: 1.5rem; /* Larger font size */
+        font-size: 1.5rem;
         font-weight: bold;
         margin-left: auto;
       }
@@ -65,17 +65,17 @@
       @media (orientation: portrait) {
         .prayer-time {
           margin-top: 40%;
-          font-size: 2.5rem; /* Move the prayer name and time 20% lower */
+          font-size: 2.5rem;
         }
 
         .prayer-name {
           margin-left: 0%;
-          font-size: 4.5rem; /* Align the prayer name 20% from the left */
+          font-size: 4.5rem;
         }
 
         .prayer-time-value {
           color: white;
-          font-size: 4rem; /* Larger font size */
+          font-size: 4rem;
           margin-left: 45%;
         }
       }
@@ -83,18 +83,17 @@
       /* Landscape mode styles */
       @media (orientation: landscape) {
         .prayer-time {
-          margin-top: 1rem; /* Move the prayer name and time 1rem lower */
+          margin-top: 1rem;
         }
 
         .prayer-name {
-          margin-left: 35%; /* Align the prayer name 35% from the left */
+          margin-left: 35%;
         }
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <!-- Background image that will change based on orientation -->
       <img
         src="portrait-image.png"
         alt="Background"
@@ -108,19 +107,30 @@
     </div>
 
     <script>
-      // Function to switch images based on orientation
+      // Function to switch images based on specific resolutions
       function updateBackgroundImage() {
         const imgElement = document.getElementById("bg-image");
-        if (window.innerHeight > window.innerWidth) {
-          // Portrait mode
-          imgElement.src = "artboard_portrait.png"; // Replace with the path to your portrait image
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        if (width === 1050 && height === 315) {
+          imgElement.src = "image-1050x315.png"; // Image for 1050x315 resolution
+        } else if (width === 1080 && height === 1920) {
+          imgElement.src = "image-1080x1920.png"; // Image for 1080x1920 resolution
+        } else if (width === 1260 && height === 315) {
+          imgElement.src = "image-1260x315.png"; // Image for 1260x315 resolution
+        } else if (width === 2160 && height === 3840) {
+          imgElement.src = "image-2160x3840.png"; // Image for 2160x3840 resolution
+        } else if (width === 3968 && height === 384) {
+          imgElement.src = "image-3968x384.png"; // Image for 3968x384 resolution
+        } else if (window.innerHeight > window.innerWidth) {
+          imgElement.src = "artboard_portrait.png"; // Default portrait image
         } else {
-          // Landscape mode
-          imgElement.src = "artboard_landscape.png"; // Replace with the path to your landscape image
+          imgElement.src = "artboard_landscape.png"; // Default landscape image
         }
       }
 
-      // Update the background image when the window is resized
+      // Update the background image on load and when the window is resized
       window.onload = updateBackgroundImage;
       window.onresize = updateBackgroundImage;
     </script>
