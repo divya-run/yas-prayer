@@ -58,6 +58,30 @@
       }
 
       /* Resolution-specific styles */
+      /* .res-1153x288 .prayer-name {
+        font-size: 2.2rem;
+        margin-left: 40%;
+        margin-top: 4%;
+      
+      }
+
+      .res-1153x288 .prayer-time-value {
+        font-size: 2.2rem;
+        margin-top: 4%;
+        margin-left: 15%;
+      } */
+      .res-960x288 .prayer-name {
+        font-size: 2rem;
+        margin-left: 43%;
+        margin-top: 3%;
+        /* Additional styling specific to 1050x315 */
+      }
+
+      .res-960x288 .prayer-time-value {
+        font-size: 2.1rem;
+        margin-top: 3%;
+        margin-left: 13%;
+      }
       .res-1050x315 .prayer-name {
         font-size: 2.2rem;
         margin-left: 40%;
@@ -151,16 +175,24 @@
           "res-1080x1920",
           "res-1260x315",
           "res-2160x3840",
-          "res-3968x384"
+          "res-3968x384",
+          "res-960x288",
+          "res-1153x288"
         );
 
         // Apply image and class based on resolution
-        if (width === 1050 && height === 315) {
+        if (width === 960 && height === 288) {
+          imgElement.src = "image-960x288.png";
+          container.classList.add("res-960x288");
+        } else if (width === 1050 && height === 315) {
           imgElement.src = "image-1050x315.png";
           container.classList.add("res-1050x315");
         } else if (width === 1080 && height === 1920) {
           imgElement.src = "image-1080x1920.png";
           container.classList.add("res-1080x1920");
+        } else if (width === 1153 && height === 288) {
+          imgElement.src = "image-1153x288.png";
+          container.classList.add("res-1153x288");
         } else if (width === 1260 && height === 315) {
           imgElement.src = "image-1260x315.png";
           container.classList.add("res-1260x315");
