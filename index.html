@@ -178,6 +178,27 @@
     </div>
 
     <script>
+      // Set this to a specific time for testing, or leave it as null to use the actual current time
+      const mockCurrentTime = new Date("2024-11-06T17:36:00"); // Change this to test different times
+
+      // Function to check if the current time is within the time window
+      function isWithinTimeWindow(prayerTime) {
+        const [hours, minutes] = prayerTime.split(":").map(Number);
+        const now = mockCurrentTime || new Date(); // Use mockCurrentTime if defined, otherwise use the actual current time
+        const prayerDate = new Date();
+
+        // Set the prayer time
+        prayerDate.setHours(hours);
+        prayerDate.setMinutes(minutes);
+        prayerDate.setSeconds(0);
+
+        // Calculate the time range
+        const startTime = new Date(prayerDate.getTime() - 5 * 60 * 1000); // 5 minutes before
+        const endTime = new Date(prayerDate.getTime() + 10 * 60 * 1000); // 10 minutes after
+
+        return now >= startTime && now <= endTime;
+      }
+
       // Function to convert 24-hour format to 12-hour format with AM/PM
       function convertTo12Hour(time) {
         let [hours, minutes] = time.split(":");
